@@ -1,0 +1,182 @@
+/* Variables CSS pour la cohérence des couleurs */
+:host {
+  --primary-color: #2c5aa0;
+  --secondary-color: #34495e;
+  --accent-color: #3498db;
+  --success-color: #27ae60;
+  --danger-color: #e74c3c;
+  --background-color: #f8f9fa;
+  --text-color: #2c3e50;
+  --border-color: #dee2e6;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
+  display: block;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--background-color) 0%, #e3f2fd 100%);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Style du titre principal */
+h1 {
+  color: var(--primary-color);
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 4px var(--shadow-color);
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Container pour le tableau */
+.table-container {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  overflow: hidden;
+  margin: 0 auto;
+  max-width: 800px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.table-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Style du tableau */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+/* Style de l'en-tête */
+thead {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  color: white;
+}
+
+thead th {
+  padding: 1.5rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  position: relative;
+}
+
+thead th:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--accent-color);
+}
+
+/* Style du corps du tableau */
+tbody tr {
+  transition: background-color 0.3s ease;
+  border-bottom: 1px solid var(--border-color);
+  animation: slideIn 0.6s ease forwards;
+}
+
+tbody tr:hover {
+  background-color: #f1f8ff;
+  transform: scale(1.01);
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody td {
+  padding: 1.25rem 1rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+/* Style spécial pour les montants positifs */
+tbody td:nth-child(2) {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+tbody tr td:nth-child(2):contains('++') {
+  color: var(--success-color);
+}
+
+/* Style pour les montants négatifs */
+tbody tr td:nth-child(2):contains('--') {
+  color: var(--danger-color);
+}
+
+/* Style pour la colonne des dates */
+tbody td:last-child {
+  font-family: 'Courier New', monospace;
+  color: var(--secondary-color);
+  font-size: 0.95rem;
+}
+
+/* Animation pour les lignes */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Styles responsives */
+@media (max-width: 768px) {
+  :host {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .table-container {
+    margin: 0 -0.5rem;
+    border-radius: 10px;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  thead th,
+  tbody td {
+    padding: 1rem 0.75rem;
+  }
+
+  thead th {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  table {
+    font-size: 0.8rem;
+  }
+
+  thead th,
+  tbody td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+}
