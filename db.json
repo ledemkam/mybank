@@ -1,0 +1,7 @@
+{
+  "transaktionen": [
+    { "id": 1, "name": "Gehaltszahlung", "amount": 1500, "date": "2024-12-01" },
+    { "id": 2, "name": "Miete", "amount": -800, "date": "2024-12-01" },
+    { "id": 3, "name": "Lebensmittel", "amount": -120, "date": "2024-12-02" }
+  ]
+}
