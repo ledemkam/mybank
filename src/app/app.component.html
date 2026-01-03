@@ -10,11 +10,13 @@
       </tr>
     </thead>
     <tbody>
+      @for(transaction of transactionList(); track transaction.id){
       <tr>
-        <td>Transactionbeispiele</td>
-        <td>++100€</td>
-        <td>01/12/2025</td>
-      </tr>
+        <td>{{transaction.name}}</td>
+        <td>{{transaction.amount > 0 ? '+' : ''}} {{transaction.amount}}</td>
+        <td>{{transaction.date}}</td>
+      }
+
     </tbody>
   </table>
 </div>
