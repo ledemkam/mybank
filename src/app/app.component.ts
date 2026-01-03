@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TransactionService } from './transactions.service';
 
@@ -9,7 +9,7 @@ import { TransactionService } from './transactions.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  protected readonly title = signal('mybank');
+
 
   readonly #transactionService = inject(TransactionService);
   readonly transactionList = toSignal(
