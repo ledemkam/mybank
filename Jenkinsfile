@@ -42,23 +42,23 @@ stages{
     // troisieme etape: Executer les tests unitaires
     stage('Executer les tests'){
       steps{
-        echo 'Execution des tests unitaires'
+        echo 'Execution des tests unitaires avec Jest'
         bat """
-        REM Executer les tests avec coverage
-        npm run test:ci
+        REM Executer les tests avec coverage usando Jest
+        npm run test:coverage
         """
       }
       post {
         always {
-          // Publier les resultats des tests
-          publishTestResults testResultsPattern: 'coverage/lcov-report/index.html'
+          // Publier les resultats des tests Jest
+          publishTestResults testResultsPattern: 'coverage/junit.xml'
           publishHTML([
             allowMissing: false,
             alwaysLinkToLastBuild: false,
             keepAll: true,
             reportDir: 'coverage/lcov-report',
             reportFiles: 'index.html',
-            reportName: 'Coverage Report'
+            reportName: 'Jest Coverage Report'
           ])
         }
       }
