@@ -15,18 +15,16 @@ stages{
         }
     }
 
-    stage('Installer les dependances'){
-      steps{
-        echo 'Installation des dependances'
-        bat """
-        node --version
-        npm --version
-        npm cache clean --force
-        npm ci
-        npm install -g @angular/cli
-        """
-      }
-    }
+   stage('Installer les dependances'){
+  steps{
+    echo 'Installation des dependances'
+    bat 'node --version'
+    bat 'npm --version'
+    bat 'npm cache clean --force'
+    bat 'npm ci'
+    bat 'npm install -g @angular/cli'
+  }
+}
 
     stage('Executer les tests'){
       steps{
