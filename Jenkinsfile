@@ -22,18 +22,18 @@ stages{
     stage('Installer les dependances'){
       steps{
         echo 'Installation des dependances'
-        sh """
-        # Verifier Node.js et npm
+        bat """
+        REM Verifier Node.js et npm
         node --version
         npm --version
 
-        # Nettoyer le cache npm
+        REM Nettoyer le cache npm
         npm cache clean --force
 
-        # Installer les dependances
+        REM Installer les dependances
         npm ci
 
-        # Installer Angular CLI globalement
+        REM Installer Angular CLI globalement
         npm install -g @angular/cli
         """
       }
@@ -43,9 +43,9 @@ stages{
     stage('Verifier la qualite du code'){
       steps{
         echo 'Verification du code avec ESLint'
-        sh """
-        # Verifier la syntaxe et la qualite du code
-        npm run lint || echo 'Lint check completed with warnings'
+        bat """
+        REM Verifier la syntaxe et la qualite du code
+        npm run lint || echo "Lint check completed with warnings"
         """
       }
     }
@@ -54,8 +54,8 @@ stages{
     stage('Executer les tests'){
       steps{
         echo 'Execution des tests unitaires'
-        sh """
-        # Executer les tests avec coverage
+        bat """
+        REM Executer les tests avec coverage
         npm run test:ci
         """
       }
@@ -79,12 +79,12 @@ stages{
     stage('Build de l\'application'){
       steps{
         echo 'Build de l\'application Angular'
-        sh """
-        # Build de production
+        bat """
+        REM Build de production
         npm run build --prod
 
-        # Verifier que le build a ete cree
-        ls -la ${BUILD_DIR}/
+        REM Verifier que le build a ete cree
+        dir %BUILD_DIR%
         """
       }
     }
@@ -106,42 +106,42 @@ stages{
       }
       steps{
         echo 'Deploiement vers l\'environnement de staging'
-        sh """
-        # === ETAPE 1: PREPARATION DU DEPLOIEMENT ===
-        # Verifier que les artefacts de build existent
+        bat """
+        REM === ETAPE 1: PREPARATION DU DEPLOIEMENT ===
+        REM Verifier que les artefacts de build existent
         echo "Verification des artefacts de build..."
-        ls -la ${BUILD_DIR}/
+        dir %BUILD_DIR%
 
-        # === ETAPE 2: DEPLOIEMENT VERS UN SERVEUR WEB ===
-        # Option A: Deploiement vers un serveur Apache/Nginx
-        # rsync -avz --delete ${BUILD_DIR}/ user@server:/var/www/mybank/
+        REM === ETAPE 2: DEPLOIEMENT VERS UN SERVEUR WEB ===
+        REM Option A: Deploiement vers un serveur Apache/Nginx
+        REM rsync -avz --delete %BUILD_DIR%/ user@server:/var/www/mybank/
 
-        # Option B: Deploiement vers Azure Static Web Apps
-        # az webapp deployment source config-zip --resource-group mybank-rg --name mybank-app --src mybank.zip
+        REM Option B: Deploiement vers Azure Static Web Apps
+        REM az webapp deployment source config-zip --resource-group mybank-rg --name mybank-app --src mybank.zip
 
-        # Option C: Deploiement vers AWS S3 + CloudFront
-        # aws s3 sync ${BUILD_DIR}/ s3://mybank-bucket --delete
-        # aws cloudfront create-invalidation --distribution-id E123456789 --paths "/*"
+        REM Option C: Deploiement vers AWS S3 + CloudFront
+        REM aws s3 sync %BUILD_DIR%/ s3://mybank-bucket --delete
+        REM aws cloudfront create-invalidation --distribution-id E123456789 --paths "/*"
 
-        # Option D: Deploiement vers Firebase Hosting
-        # firebase deploy --only hosting
+        REM Option D: Deploiement vers Firebase Hosting
+        REM firebase deploy --only hosting
 
-        # Option E: Deploiement vers GitHub Pages
-        # gh-pages -d ${BUILD_DIR}
+        REM Option E: Deploiement vers GitHub Pages
+        REM gh-pages -d %BUILD_DIR%
 
-        # === ETAPE 3: VERIFICATION POST-DEPLOIEMENT ===
-        # Test de sante de l'application deployee
-        # curl -f http://your-app-url.com/health || exit 1
+        REM === ETAPE 3: VERIFICATION POST-DEPLOIEMENT ===
+        REM Test de sante de l'application deployee
+        REM curl -f http://your-app-url.com/health || exit 1
 
-        # === ETAPE 4: NOTIFICATION ===
-        # Envoyer une notification de succes
-        echo 'Application MyBank deployee avec succes!'
-        echo 'URL de l application: https://your-app-url.com'
+        REM === ETAPE 4: NOTIFICATION ===
+        REM Envoyer une notification de succes
+        echo "Application MyBank deployee avec succes!"
+        echo "URL de l application: https://your-app-url.com"
 
-        # Optionnel: Envoyer notification Slack/Teams
-        # curl -X POST -H 'Content-type: application/json' \
-        #   --data '{"text":"MyBank deployed successfully to staging!"}' \
-        #   YOUR_SLACK_WEBHOOK_URL
+        REM Optionnel: Envoyer notification Slack/Teams
+        REM curl -X POST -H 'Content-type: application/json' ^
+        REM   --data '{"text":"MyBank deployed successfully to staging!"}' ^
+        REM   YOUR_SLACK_WEBHOOK_URL
         """
       }
       // Actions post-deploiement

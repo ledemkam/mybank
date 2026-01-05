@@ -10,7 +10,8 @@
     "test": "ng test",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:ci": "jest --ci"
+    "test:ci": "jest --ci",
+    "lint": "ng lint || echo 'ESLint not configured'"
   },
   "prettier": {
     "printWidth": 100,
