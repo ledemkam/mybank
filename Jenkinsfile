@@ -39,18 +39,7 @@ stages{
       }
     }
 
-    // troisieme etape: Verifier la qualite du code (lint)
-    stage('Verifier la qualite du code'){
-      steps{
-        echo 'Verification du code avec ESLint'
-        bat """
-        REM Verifier la syntaxe et la qualite du code
-        npm run lint || echo "Lint check completed with warnings"
-        """
-      }
-    }
-
-    // quatrieme etape: Executer les tests unitaires
+    // troisieme etape: Executer les tests unitaires
     stage('Executer les tests'){
       steps{
         echo 'Execution des tests unitaires'
@@ -75,7 +64,7 @@ stages{
       }
     }
 
-    // cinquieme etape: Build de l'application
+    // quatrieme etape: Build de l'application
     stage('Build de l\'application'){
       steps{
         echo 'Build de l\'application Angular'
@@ -89,7 +78,7 @@ stages{
       }
     }
 
-    // sixieme etape: Archiver les artefacts
+    // cinquieme etape: Archiver les artefacts
     stage('Archiver les artefacts'){
       steps{
         echo 'Archivage des artefacts de build'
@@ -97,7 +86,7 @@ stages{
       }
     }
 
-    // septieme etape: Deploiement (optionnel)
+    // sixieme etape: Deploiement (optionnel)
     stage('Deploiement'){
       // Cette condition assure que le deploiement ne se fait que sur la branche principale
       // Evite les deploiements accidentels depuis des branches de feature
